@@ -15,7 +15,7 @@ Tree::Tree(ShaderIF* sIF, double height, double xCenter, double zCenter) : shade
 	// bottom
 	const cryph::AffPoint p1(xCenter+(radius*sin(0)), height/2, zCenter+(radius*cos(0)));
 	const cryph::AffPoint p2(xCenter+(radius*sin(2*M_PI/3)), height/2, zCenter+(radius*cos(2*M_PI/3))); 
-	const cryph::AffPoint p3(xCenter+(radius*sin(4*M_PI/3)), height/2, xCenter+(radius*cos(4*M_PI/3)));
+	const cryph::AffPoint p3(xCenter+(radius*sin(4*M_PI/3)), height/2, zCenter+(radius*cos(4*M_PI/3)));
 
 
 	float R=0.0;
@@ -45,7 +45,7 @@ Tree::Tree(ShaderIF* sIF, double height, double xCenter, double zCenter) : shade
 	ymax = yb + r;
 	zmin = zb - r;
 	zmax = zb + r;
-	defineCylinder(x1, x2, yb, zb, r);
+	defineCylinder(x1, x2, xCenter, zCenter, r);
 }
 
 Tree::~Tree()
@@ -191,14 +191,14 @@ void Tree::defineCylinder(double y1, double y2, double xb, double zb, double r)
 		double nz=r*sin(theta);
 
 		//vboPts[i] = (x1, ny, nz)
-		coords[i][0] = nx;
+		coords[i][0] = nx +xb;
 		coords[i][1] = y1;
-		coords[i][2] = nz;
+		coords[i][2] = nz+zb;
 
 		//vboPts[i+1] = (x2, ny, nz)
-		coords[i+1][0] = nx;
+		coords[i+1][0] = nx+xb;
 		coords[i+1][1] = y2;
-		coords[i+1][2] = nz;
+		coords[i+1][2] = nz+zb;
 
         // ny and nz also specify the normal vector along this ruling:
         //vboNormals[i] = (0, ny, nz)
