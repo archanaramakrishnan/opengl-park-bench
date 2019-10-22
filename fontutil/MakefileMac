@@ -1,0 +1,16 @@
+CPP = g++ -std=c++11
+C_FLAGS = -I../cryphutil -I/usr/local/include -fPIC -g -c -DGLFW_INCLUDE_GLEXT -DGLFW_INCLUDE_GLCOREARB -DGL_SILENCE_DEPRECATION
+
+LINK = g++ -fPIC
+
+OBJS = CFont.o CGLString.o
+
+libfont.so: $(OBJS)
+	$(LINK) -shared -o libfont.so $(OBJS) ../lib/libcryph.so -framework OpenGL
+	cp libfont.so ../lib/
+
+CFont.o: CFont.h CFont.c++
+	$(CPP) $(C_FLAGS) CFont.c++
+
+CGLString.o: CGLString.h CGLString.c++
+	$(CPP) $(C_FLAGS) CGLString.c++
