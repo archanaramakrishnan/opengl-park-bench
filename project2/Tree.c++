@@ -7,15 +7,18 @@
 
 Tree::Tree(ShaderIF* sIF, double height, double xCenter, double zCenter) : shaderIF(sIF)
 {
-	double radius=0.4*height;
+	double tetraRadius=0.4*height; //circle around the three points of the base of the tetrahedron
+	double cylinderRadius=0.05*height; //radius of the bark of the tree
+
 
 	//TETRAHEDRON
 	// top
 	const cryph::AffPoint p0(xCenter, height, zCenter);
 	// bottom
-	const cryph::AffPoint p1(xCenter+(radius*sin(0)), height/2, zCenter+(radius*cos(0)));
-	const cryph::AffPoint p2(xCenter+(radius*sin(2*M_PI/3)), height/2, zCenter+(radius*cos(2*M_PI/3))); 
-	const cryph::AffPoint p3(xCenter+(radius*sin(4*M_PI/3)), height/2, zCenter+(radius*cos(4*M_PI/3)));
+	//the bark is 3/8th of the height passed in (total height of the tree)
+	const cryph::AffPoint p1(xCenter+(tetraRadius*sin(0)), 3*height/8, zCenter+(tetraRadius*cos(0)));
+	const cryph::AffPoint p2(xCenter+(tetraRadius*sin(2*M_PI/3)), 3*height/8, zCenter+(tetraRadius*cos(2*M_PI/3))); 
+	const cryph::AffPoint p3(xCenter+(tetraRadius*sin(4*M_PI/3)), 3*height/8, zCenter+(tetraRadius*cos(4*M_PI/3)));
 
 
 	float R=0.0;
@@ -38,14 +41,13 @@ Tree::Tree(ShaderIF* sIF, double height, double xCenter, double zCenter) : shade
 	kdCylinder[0] = 0.545; kdCylinder[1] = 0.271; kdCylinder[2] = 0.074;
 	double x1 = 0, x2 = height * .5;
 	double yb = -0.35, zb = 1.4;
-	double r = 0.05;
 	xmin = x1;
 	xmax = x2;
-	ymin = yb - r;
-	ymax = yb + r;
-	zmin = zb - r;
-	zmax = zb + r;
-	defineCylinder(x1, x2, xCenter, zCenter, r);
+	ymin = yb - cylinderRadius;
+	ymax = yb + cylinderRadius;
+	zmin = zb - cylinderRadius;
+	zmax = zb + cylinderRadius;
+	defineCylinder(x1, x2, xCenter, zCenter, cylinderRadius);
 }
 
 Tree::~Tree()
