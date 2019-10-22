@@ -35,7 +35,7 @@ Tree::Tree(ShaderIF* sIF, double height, double xCenter, double zCenter) : shade
 	updateXYZBounds(p3);
 
 	//CYLINDER
-	kdCylinder[0] = 0.25; kdCylinder[1] = 1.0; kdCylinder[2] = 0.5;
+	kdCylinder[0] = 0.545; kdCylinder[1] = 0.271; kdCylinder[2] = 0.074;
 	double x1 = 0, x2 = height * .5;
 	double yb = -0.35, zb = 1.4;
 	double r = 0.05;
