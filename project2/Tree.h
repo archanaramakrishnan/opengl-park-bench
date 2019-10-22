@@ -25,7 +25,7 @@ public:
 	bool handleCommand(unsigned char anASCIIChar, double ldsX, double ldsY);
 	//void renderTetrahedron();
 
-	void defineCylinder(double x1, double x2, double yb, double zb, double r);
+	void defineCylinder(double y1, double y2, double xb, double zb, double r);
 	void render();
 
 private:

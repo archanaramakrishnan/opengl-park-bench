@@ -144,23 +144,6 @@ void Tree::render()
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 2*(N_POINTS_AROUND_SLICE+1));
 
 	glUseProgram(pgm);
-
-	/*typedef float vec3[3];
-	GLint pgm;
-	glGetIntegerv(GL_CURRENT_PROGRAM, &pgm);
-	glUseProgram(shaderIF->getShaderPgmID());
-
-	cryph::Matrix4x4 mc_ec, ec_lds;
-	getMatrices(mc_ec, ec_lds);
-	float mat[16];
-	glUniformMatrix4fv(shaderIF->ppuLoc("mc_ec"), 1, false, mc_ec.extractColMajor(mat));
-	glUniformMatrix4fv(shaderIF->ppuLoc("ec_lds"), 1, false, ec_lds.extractColMajor(mat));
-
-	glUniform3fv(shaderIF->ppuLoc("kd"), 1, kdCylinder);
-	glBindVertexArray(vaoCylinder[0]);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 2*(N_POINTS_AROUND_SLICE+1));
-
-	glUseProgram(pgm);*/
 }
 
 void Tree::updateXYZBounds(const cryph::AffPoint& p)
@@ -183,7 +166,7 @@ void Tree::updateXYZBounds(const cryph::AffPoint& p)
 
 
 
-void Tree::defineCylinder(double x1, double x2, double yb, double zb, double r)
+void Tree::defineCylinder(double y1, double y2, double xb, double zb, double r)
 {
 	typedef float vec3[3];
 	int nPoints = 2 * (N_POINTS_AROUND_SLICE + 1); // "+1" because last point = first
@@ -204,28 +187,28 @@ void Tree::defineCylinder(double x1, double x2, double yb, double zb, double r)
 	{
 		// Each time through this loop, create two points and their corresponding
 		// (and common) normal vectors
-		double ny=r*cos(theta);
+		double nx=r*cos(theta);
 		double nz=r*sin(theta);
 
 		//vboPts[i] = (x1, ny, nz)
-		coords[i][0] = x1;
-		coords[i][1] = ny;
+		coords[i][0] = nx;
+		coords[i][1] = y1;
 		coords[i][2] = nz;
 
 		//vboPts[i+1] = (x2, ny, nz)
-		coords[i+1][0] = x2;
-		coords[i+1][1] = ny;
+		coords[i+1][0] = nx;
+		coords[i+1][1] = y2;
 		coords[i+1][2] = nz;
 
         // ny and nz also specify the normal vector along this ruling:
         //vboNormals[i] = (0, ny, nz)
-		normals[i][0] = 0;
-		normals[i][1] = ny;
+		normals[i][0] = nx;
+		normals[i][1] = 0;
 		normals[i][2] = nz;
 
 		//vboNormals[i+1] = (0, ny, nz);
-		normals[i+1][0] = 0;
-		normals[i+1][1] = ny;
+		normals[i+1][0] = nx;
+		normals[i+1][1] = 0;
 		normals[i+1][2] = nz;
 
 		// Refer to 672's InClass/3DModeling/3DGeometryAndAttributeModeling101.html
