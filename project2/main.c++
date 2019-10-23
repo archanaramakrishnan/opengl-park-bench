@@ -3,19 +3,41 @@
 #include "ExtendedController.h"
 
 #include "Tree.h"
+#include "Grass.h"
+#include "Bench.h"
 
-void addTetrahedra(Controller& c, ShaderIF* sIF)
+void addTrees(Controller& c, ShaderIF* sIF)
 {
+	//Add 9 trees
 	c.addModel(new Tree(sIF, 28, -30, 0));
 	c.addModel(new Tree(sIF, 25, -15, 0));
 	c.addModel(new Tree(sIF, 30, 0, 0));
 	c.addModel(new Tree(sIF, 32, 15, 0));
-	c.addModel(new Tree(sIF, 35, 30, 0));
+	//c.addModel(new Tree(sIF, 35, 30, 0));
 
 	c.addModel(new Tree(sIF, 28, -20, 15));
 	c.addModel(new Tree(sIF, 28, -5, 15));
 	c.addModel(new Tree(sIF, 32, 5, 15));
 	c.addModel(new Tree(sIF, 35, 20, 15));
+}
+
+//ShaderIF* sIF, double height, double xCenter, double zCenter
+void addGrass(Controller& c, ShaderIF* sIF)
+{
+	//the ground is on the XZ plane
+
+	//started out with 100x100 but spaced it out 5*x/z which was too much
+	//moved to 20x20 
+	//but thought 100 would be better for a denser patch of grass
+
+	for(int x=0; x<100; x++)
+	{
+		for(int z=0; z<100; z++)
+		{
+			c.addModel(new Grass(sIF, 0.5, -35+(x*0.6), -35+(0.6*z)));
+		}
+	}	
+	//c.addModel(new Bench(sIF, -2.0, -2.4, -1.2, 5.3, 5.3, 5.4));
 }
 
 void createScene(ExtendedController& c, ShaderIF* sIF)
@@ -28,7 +50,8 @@ void createScene(ExtendedController& c, ShaderIF* sIF)
 	//c.addModel(new M(sIF, dXYZ, color2));
 	//c.addModel(new Block(sIF, 0.3, -0.4, 1.2, 0.3, 0.3, 0.4));
 	//c.addModel(new Cylinder(sIF));
-	addTetrahedra(c, sIF);
+	addTrees(c, sIF);
+	addGrass(c, sIF);
 }
 
 void set3DViewingInformation(double overallBB[])

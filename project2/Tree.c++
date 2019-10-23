@@ -1,4 +1,4 @@
-// Tetrahedron.c++
+// Tree.c++
 
 #include <iostream>
 #include <math.h>
