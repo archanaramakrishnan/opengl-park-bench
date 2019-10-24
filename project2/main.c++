@@ -59,8 +59,6 @@ void createScene(ExtendedController& c, ShaderIF* sIF)
 	addPicnicTable(c, sIF);
 }
 
-
-
 void set3DViewingInformation(double overallBB[])
 {
 	ModelView::setMCRegionOfInterest(overallBB);
@@ -83,12 +81,12 @@ void set3DViewingInformation(double overallBB[])
 	double r=std::max(maxOfXY, (zMax-zMin/2));
 
 	//Distance
-	double d=8*r;
+	double d=4*r;
 
 	//Dir is any direction parallel to an MC axis
 	cryph::AffVector dir=cryph::AffVector( 0.0 , 0.0 , 1.0 );
 
-	cryph::AffPoint eye=center+(d*dir); 
+	cryph::AffPoint eye=center+(d*dir) + cryph::AffVector( 0.0 , 40.0 , 0.0 ); 
 
 	//Up: any direction parallel to an MC axis thats is not parallel to dir
 	cryph::AffVector up=cryph::AffVector( 0.0 , 1.0 , 0.0 );
@@ -109,7 +107,7 @@ void set3DViewingInformation(double overallBB[])
 
 int main(int argc, char* argv[])
 {
-	ExtendedController c("A Park Bench", MVC_USE_DEPTH_BIT);
+	ExtendedController c("Park Benches", MVC_USE_DEPTH_BIT);
 	c.reportVersions(std::cout);
 
 	ShaderIF* sIF = new ShaderIF("shaders/basic.vsh", "shaders/phong.fsh");
