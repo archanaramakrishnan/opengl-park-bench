@@ -43,7 +43,7 @@ void addPicnicTable(Controller& c, ShaderIF* sIF)
 	//but, this is just a 'block' class, drawing a bench which is not what dr miller wants :(
 	
 	//bench 1
-	c.addModel(new Bench(sIF, -14.0, 2.0, 25.2, 15.0, 1.0, 2.0));
+	c.addModel(new Bench(sIF, -14.0, 25.2));
 	
 	//bench 2
 	// double distanceToCamera=10.0;

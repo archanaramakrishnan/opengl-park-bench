@@ -11,32 +11,25 @@
 
 #include "ModelView.h"
 #include "ShaderIF.h"
+#include "Block.h"
+
 
 class Bench : public ModelView
 {
 public:
-	Bench(ShaderIF* sIF, float cx, float cy, float cz, // lower left corner
-	      float lx, float ly, float lz);// lengths in 3 directions
+	Bench(ShaderIF* sIF, double xCorner, double zCorner);// coordinates of left corner of bench, y is always 0
 	virtual ~Bench();
 
 	// xyzLimits: {mcXmin, mcXmax, mcYmin, mcYmax, mcZmin, mcZmax}
 	void getMCBoundingBox(double* xyzLimits) const;
 	bool handleCommand(unsigned char anASCIIChar, double ldsX, double ldsY);
 	void render();
-	void renderBlock();
+	//void renderBlock();
 private:
-	ShaderIF* shaderIF;
-	GLuint vao[1];
-	GLuint vbo[1];
-	GLuint ebo[3];
+	Block* blocks[5];
 
 	// "float" here to match the need to send float to VBO.
 	float xmin, xmax, ymin, ymax, zmin, zmax;
-	float kd[3];
-
-	static GLuint indexList[3][4];
-
-	void defineBlock();
 };
 
 #endif
