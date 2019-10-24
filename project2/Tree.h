@@ -1,7 +1,7 @@
-// Tetrahedron.h
+// Tree.h
 
-#ifndef TETRAHEDRON_H
-#define TETRAHEDRON_H
+#ifndef TREE_H
+#define TREE_H
 
 #ifdef __APPLE_CC__
 #include "GLFW/glfw3.h"

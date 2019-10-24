@@ -9,7 +9,7 @@ Grass::Grass(ShaderIF* sIF, double height, double xCenter, double zCenter) : sha
 	kd[0] = 0.0; kd[1] = 0.5; kd[2] = 0.0;
 	// put vertices in array to simplify generation of geometry:
 
-	double grassRadius=0.4*height; //circle around the three points of the base of the blade of grass
+	double grassRadius=0.8*height; //circle around the three points of the base of the blade of grass
 
 	const cryph::AffPoint p0(xCenter, height, zCenter);
 	// bottom

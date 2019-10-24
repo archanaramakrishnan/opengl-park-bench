@@ -13,15 +13,12 @@ void addTrees(Controller& c, ShaderIF* sIF)
 	c.addModel(new Tree(sIF, 25, -15, 0));
 	c.addModel(new Tree(sIF, 30, 0, 0));
 	c.addModel(new Tree(sIF, 32, 15, 0));
-	//c.addModel(new Tree(sIF, 35, 30, 0));
-
 	c.addModel(new Tree(sIF, 28, -20, 15));
 	c.addModel(new Tree(sIF, 28, -5, 15));
 	c.addModel(new Tree(sIF, 32, 5, 15));
 	c.addModel(new Tree(sIF, 35, 20, 15));
 }
 
-//ShaderIF* sIF, double height, double xCenter, double zCenter
 void addGrass(Controller& c, ShaderIF* sIF)
 {
 	//the ground is on the XZ plane
@@ -30,14 +27,56 @@ void addGrass(Controller& c, ShaderIF* sIF)
 	//moved to 20x20 
 	//but thought 100 would be better for a denser patch of grass
 
-	for(int x=0; x<100; x++)
+	double offset;
+	for(int x=0; x<100; x=x+1)
 	{
-		for(int z=0; z<100; z++)
+		for(int z=0; z<100; z=z+1)
 		{
-			c.addModel(new Grass(sIF, 0.5, -35+(x*0.6), -35+(0.6*z)));
+			offset=(rand() % 10 + 1)*0.1;
+			c.addModel(new Grass(sIF, 0.5, (offset-35)+(x*0.6), ((offset+2)-20)+(0.6*z)));
 		}
 	}	
-	//c.addModel(new Bench(sIF, -2.0, -2.4, -1.2, 5.3, 5.3, 5.4));
+}
+
+void addPicnicTable(Controller& c, ShaderIF* sIF)
+{
+	//but, this is just a 'block' class, drawing a bench which is not what dr miller wants :(
+	
+	//bench 1
+	c.addModel(new Bench(sIF, -14.0, 2.0, 25.2, 15.0, 1.0, 2.0));
+	
+	//bench 2
+	// double distanceToCamera=10.0;
+	// c.addModel(new Bench(sIF, -14.0, 2.0, 25.2+distanceToCamera, 15.0, 1.0, 2.0));
+
+	// //picnic table
+	// distanceToCamera=3.6;
+	// double widthIncrease=3.0;
+	// double moveUp=2.0;
+	// c.addModel(new Bench(sIF, -14.0, 2.0+moveUp, 25.2+distanceToCamera, 15.0, 1.0, 2.0+widthIncrease));
+
+	// double offset=0.0;
+	// for(int i=0; i<2; i++)
+	// {
+	// 	offset=0.0;
+	// 	for(int j=0; j<2; j++)
+	// 	{
+	// 		if(i==0)
+	// 		{
+	// 			distanceToCamera=0.0;
+	// 		}
+	// 		else
+	// 		{
+	// 			distanceToCamera=0.0;
+	// 		}
+			
+	// 		c.addModel(new Bench(sIF, -14.0+offset, 0.0, 25.2+distanceToCamera, 0.2, 3.0, 0.2));
+	// 		offset=14.0;
+	// 	}
+		
+	// }
+
+	//c.addModel(new Bench(sIF, left(-)/right(+), up/down, front/back, length, height, width));
 }
 
 void createScene(ExtendedController& c, ShaderIF* sIF)
@@ -47,12 +86,12 @@ void createScene(ExtendedController& c, ShaderIF* sIF)
 	//c.addModel(new M(sIF, dXYZ, color1));
 	dXYZ[0] = 0.7; // translate next 'M' by deltaX = 0.7
 	float color2[] = { 1.0, 0.25, 0.2 };
-	//c.addModel(new M(sIF, dXYZ, color2));
-	//c.addModel(new Block(sIF, 0.3, -0.4, 1.2, 0.3, 0.3, 0.4));
-	//c.addModel(new Cylinder(sIF));
 	addTrees(c, sIF);
 	addGrass(c, sIF);
+	addPicnicTable(c, sIF);
 }
+
+
 
 void set3DViewingInformation(double overallBB[])
 {
@@ -76,7 +115,7 @@ void set3DViewingInformation(double overallBB[])
 	double r=std::max(maxOfXY, (zMax-zMin/2));
 
 	//Distance
-	double d=2*r;
+	double d=8*r;
 
 	//Dir is any direction parallel to an MC axis
 	cryph::AffVector dir=cryph::AffVector( 0.0 , 0.0 , 1.0 );

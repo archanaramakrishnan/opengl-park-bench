@@ -15,7 +15,7 @@ MAKE = make -f MakefileMac
 LINK = g++ -fPIC -g
 LOCAL_UTIL_LIBRARIES = ../lib/libcryph.so ../lib/libfont.so ../lib/libglsl.so ../lib/libImageReader.so ../lib/libmvc.so
 
-OBJS = main.o ExtendedController.o Tree.o
+OBJS = main.o ExtendedController.o Tree.o Grass.o Bench.o
 
 main: $(OBJS) $(LOCAL_UTIL_LIBRARIES)
 	$(LINK) -o main $(OBJS) $(LOCAL_UTIL_LIBRARIES) $(GL_LIBRARIES)
@@ -41,3 +41,7 @@ ExtendedController.o: ExtendedController.c++
 	$(CPP) $(C_FLAGS) ExtendedController.c++
 Tree.o: Tree.h Tree.c++
 	$(CPP) $(C_FLAGS) Tree.c++
+Grass.o: Grass.h Grass.c++
+	$(CPP) $(C_FLAGS) Grass.c++
+Bench.o: Bench.h Bench.c++
+	$(CPP) $(C_FLAGS) Bench.c++

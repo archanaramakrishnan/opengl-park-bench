@@ -20,7 +20,6 @@ Tree::Tree(ShaderIF* sIF, double height, double xCenter, double zCenter) : shade
 	const cryph::AffPoint p2(xCenter+(tetraRadius*sin(2*M_PI/3)), 3*height/8, zCenter+(tetraRadius*cos(2*M_PI/3))); 
 	const cryph::AffPoint p3(xCenter+(tetraRadius*sin(4*M_PI/3)), 3*height/8, zCenter+(tetraRadius*cos(4*M_PI/3)));
 
-
 	float R=0.0;
 	float G=0.6;
 	float B=0.2;

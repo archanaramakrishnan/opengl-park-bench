@@ -22,8 +22,8 @@ void ExtendedController::handleMouseMotion(int x, int y)
 	//    ModelView::addToGlobalPan
 	if(mouseMotionIsTranslate==true)
 	{
-		double dxInLDS=dx;
-		double dyInLDS=dy;
+		double dxInLDS=2*dx/newWindowWidth;
+		double dyInLDS=2*dy/newWindowHeight;
 		ModelView::addToGlobalPan(dxInLDS, dyInLDS, 0.0);
 
 	}
@@ -31,7 +31,8 @@ void ExtendedController::handleMouseMotion(int x, int y)
 	//    ModelView::addToGlobalRotationDegrees.
 	else if(mouseMotionIsRotate==true)
 	{
-		ModelView::addToGlobalRotationDegrees(dx, dy, 0.0);
+		//double rotY = factor * Δx; // x mouse motion ⇒ rotation about y (and vice versa)
+		ModelView::addToGlobalRotationDegrees(dy*0.8, dx*0.8, 0.0);
 	}
 
 	// 5. do a redraw()
