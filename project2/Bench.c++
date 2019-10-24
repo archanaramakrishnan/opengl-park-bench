@@ -9,9 +9,9 @@ typedef float vec3[3];
 
 //dimensions of the bench
 const double height = 2.5;
-const double length = 4.0;
-const double width = 1.5;
-const double thickness = 0.167; //2 inches thickness
+const double length = 6.0;
+const double width = 2.0;
+const double thickness = 0.3; //few inches thickness
 
 Bench::Bench(ShaderIF* sIF, double xCorner, double zCorner)
 {
@@ -22,7 +22,7 @@ Bench::Bench(ShaderIF* sIF, double xCorner, double zCorner)
 	//top
 	blocks[0]= new Block(sIF, xmin, height - thickness, zmin, length, thickness, width);
 
-	const double legDimension = length/10;	//square n*n dimension of cuboid cross section
+	const double legDimension = length/15;	//square n*n dimension of cuboid cross section
 
 	//legs
 	blocks[1]= new Block(sIF, xmin, 0, zmin, legDimension, height - thickness, legDimension);

@@ -9,14 +9,14 @@
 void addTrees(Controller& c, ShaderIF* sIF)
 {
 	//Add 9 trees
-	c.addModel(new Tree(sIF, 28, -30, 0));
-	c.addModel(new Tree(sIF, 25, -15, 0));
-	c.addModel(new Tree(sIF, 30, 0, 0));
-	c.addModel(new Tree(sIF, 32, 15, 0));
-	c.addModel(new Tree(sIF, 28, -20, 15));
-	c.addModel(new Tree(sIF, 28, -5, 15));
-	c.addModel(new Tree(sIF, 32, 5, 15));
-	c.addModel(new Tree(sIF, 35, 20, 15));
+	c.addModel(new Tree(sIF, 18, -30, 0));
+	c.addModel(new Tree(sIF, 15, -15, 0));
+	c.addModel(new Tree(sIF, 20, 0, 0));
+	c.addModel(new Tree(sIF, 22, 15, 0));
+	c.addModel(new Tree(sIF, 18, -20, 15));
+	c.addModel(new Tree(sIF, 18, -5, 15));
+	c.addModel(new Tree(sIF, 22, 5, 15));
+	c.addModel(new Tree(sIF, 25, 20, 15));
 }
 
 void addGrass(Controller& c, ShaderIF* sIF)
@@ -39,44 +39,12 @@ void addGrass(Controller& c, ShaderIF* sIF)
 }
 
 void addPicnicTable(Controller& c, ShaderIF* sIF)
-{
-	//but, this is just a 'block' class, drawing a bench which is not what dr miller wants :(
-	
+{	
 	//bench 1
 	c.addModel(new Bench(sIF, -14.0, 25.2));
-	
+
 	//bench 2
-	// double distanceToCamera=10.0;
-	// c.addModel(new Bench(sIF, -14.0, 2.0, 25.2+distanceToCamera, 15.0, 1.0, 2.0));
-
-	// //picnic table
-	// distanceToCamera=3.6;
-	// double widthIncrease=3.0;
-	// double moveUp=2.0;
-	// c.addModel(new Bench(sIF, -14.0, 2.0+moveUp, 25.2+distanceToCamera, 15.0, 1.0, 2.0+widthIncrease));
-
-	// double offset=0.0;
-	// for(int i=0; i<2; i++)
-	// {
-	// 	offset=0.0;
-	// 	for(int j=0; j<2; j++)
-	// 	{
-	// 		if(i==0)
-	// 		{
-	// 			distanceToCamera=0.0;
-	// 		}
-	// 		else
-	// 		{
-	// 			distanceToCamera=0.0;
-	// 		}
-			
-	// 		c.addModel(new Bench(sIF, -14.0+offset, 0.0, 25.2+distanceToCamera, 0.2, 3.0, 0.2));
-	// 		offset=14.0;
-	// 	}
-		
-	// }
-
-	//c.addModel(new Bench(sIF, left(-)/right(+), up/down, front/back, length, height, width));
+	c.addModel(new Bench(sIF, -4.0, 25.2));
 }
 
 void createScene(ExtendedController& c, ShaderIF* sIF)
