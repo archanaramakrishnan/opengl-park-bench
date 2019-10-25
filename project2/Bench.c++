@@ -12,6 +12,10 @@ const double height = 2.5;
 const double length = 6.0;
 const double width = 2.0;
 const double thickness = 0.3; //few inches thickness
+float R=0.639;
+float G=0.631;
+float B=0.584;
+const double legDimension = length/15;	//square n*n dimension of cuboid cross section
 
 Bench::Bench(ShaderIF* sIF, double xCorner, double zCorner)
 {
@@ -20,15 +24,13 @@ Bench::Bench(ShaderIF* sIF, double xCorner, double zCorner)
 	zmin = zCorner; zmax = zCorner + width;
 
 	//top
-	blocks[0]= new Block(sIF, xmin, height - thickness, zmin, length, thickness, width);
-
-	const double legDimension = length/15;	//square n*n dimension of cuboid cross section
+	blocks[0]= new Block(sIF, xmin, height - thickness, zmin, length, thickness, width, R, G, B);
 
 	//legs
-	blocks[1]= new Block(sIF, xmin, 0, zmin, legDimension, height - thickness, legDimension);
-	blocks[2]= new Block(sIF, xmin, 0, zmin+width-legDimension, legDimension, height - thickness, legDimension);
-	blocks[3]= new Block(sIF, xmin+length-legDimension, 0, zmin, legDimension, height - thickness, legDimension);
-	blocks[4]= new Block(sIF, xmin+length-legDimension, 0, zmin+width-legDimension, legDimension, height - thickness, legDimension);
+	blocks[1]= new Block(sIF, xmin, 0, zmin, legDimension, height - thickness, legDimension, R, G, B);
+	blocks[2]= new Block(sIF, xmin, 0, zmin+width-legDimension, legDimension, height - thickness, legDimension, R, G, B);
+	blocks[3]= new Block(sIF, xmin+length-legDimension, 0, zmin, legDimension, height - thickness, legDimension, R, G, B);
+	blocks[4]= new Block(sIF, xmin+length-legDimension, 0, zmin+width-legDimension, legDimension, height - thickness, legDimension, R, G, B);
 	
 	// kd[0] = 0.7; kd[1] = 0.7; kd[2] = 0.0;
 	// defineBlock();

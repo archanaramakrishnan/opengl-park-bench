@@ -9,14 +9,14 @@
 void addTrees(Controller& c, ShaderIF* sIF)
 {
 	//Add 9 trees
-	c.addModel(new Tree(sIF, 18, -30, 0));
-	c.addModel(new Tree(sIF, 15, -15, 0));
-	c.addModel(new Tree(sIF, 20, 0, 0));
-	c.addModel(new Tree(sIF, 22, 15, 0));
-	c.addModel(new Tree(sIF, 18, -20, 15));
-	c.addModel(new Tree(sIF, 18, -5, 15));
-	c.addModel(new Tree(sIF, 22, 5, 15));
-	c.addModel(new Tree(sIF, 25, 20, 15));
+	c.addModel(new Tree(sIF, 23, -30, 0));
+	c.addModel(new Tree(sIF, 20, -15, 0));
+	c.addModel(new Tree(sIF, 25, 0, 0));
+	c.addModel(new Tree(sIF, 27, 15, 0));
+	c.addModel(new Tree(sIF, 23, -20, 15));
+	c.addModel(new Tree(sIF, 23, -5, 15));
+	c.addModel(new Tree(sIF, 27, 5, 15));
+	c.addModel(new Tree(sIF, 30, 20, 15));
 }
 
 void addGrass(Controller& c, ShaderIF* sIF)
@@ -36,6 +36,13 @@ void addGrass(Controller& c, ShaderIF* sIF)
 			c.addModel(new Grass(sIF, 0.5, (offset-35)+(x*0.6), ((offset+2)-20)+(0.6*z)));
 		}
 	}	
+
+	//didn't feel necessary to create a new class for the ground (just a simple block)
+	c.addModel(new Block(sIF,
+		-35.0, -0.01, -18.0,
+		61.0, 0.02, 61.0,
+		0.098, 0.0627, 0.0705
+	));
 }
 
 void addPicnicTable(Controller& c, ShaderIF* sIF)
