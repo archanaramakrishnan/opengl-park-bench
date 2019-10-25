@@ -23,10 +23,11 @@ public:
 	// xyzLimits: {mcXmin, mcXmax, mcYmin, mcYmax, mcZmin, mcZmax}
 	void getMCBoundingBox(double* xyzLimits) const;
 	bool handleCommand(unsigned char anASCIIChar, double ldsX, double ldsY);
-	//void renderTetrahedron();
-
 	void defineCylinder(double y1, double y2, double xb, double zb, double r);
 	void render();
+	//combined render code of the cylinder and tetrahedron into one function
+	//instead of renderCylinder() and renderTetrahedron
+	//because of an unimplemented pure virtual method 'render' from Modelview.h
 
 private:
 	ShaderIF* shaderIF;
@@ -41,6 +42,7 @@ private:
 
 	float kaTetra[3]; // the RGB diffuse color of the leaves
 	float kaCylinder[3]; // the RGB diffuse color of the tree bark
+	
 
 	cryph::AffVector normal[4]; // the four normals to the four faces
 	double minMax[6]; // for MC bounding box

@@ -7,6 +7,7 @@
 Grass::Grass(ShaderIF* sIF, double height, double xCenter, double zCenter) : shaderIF(sIF)
 {
 	kd[0] = 0.0; kd[1] = 0.5; kd[2] = 0.0;
+	ka[0] = 0.0; ka[1] = 0.5; ka[2] = 0.0;
 	// put vertices in array to simplify generation of geometry:
 
 	double grassRadius=0.8*height; //circle around the three points of the base of the blade of grass
@@ -115,6 +116,7 @@ void Grass::renderTetrahedron()
 {
 	glBindVertexArray(vao[0]);
 	glUniform3fv(shaderIF->ppuLoc("kd"), 1, kd);
+	glUniform3fv(shaderIF->ppuLoc("ka"), 1, ka);
 
 	// draw the four faces:
 	for (int fi=0 ; fi<4 ; fi++)

@@ -31,6 +31,7 @@ private:
 	GLuint vbo[1];
 
 	float kd[3]; // the RGB diffuse color of the grass
+	float ka[3]; // same as kd
 	cryph::AffVector normal[4]; // the four normals to the four faces
 	double minMax[6]; // for MC bounding box
 

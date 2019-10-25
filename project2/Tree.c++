@@ -11,7 +11,7 @@ Tree::Tree(ShaderIF* sIF, double height, double xCenter, double zCenter) : shade
 	double cylinderRadius=0.05*height; //radius of the bark of the tree
 
 
-	//TETRAHEDRON
+	//Tetrahedron Group of Leaves
 	// top
 	const cryph::AffPoint p0(xCenter, height, zCenter);
 	// bottom
@@ -25,6 +25,7 @@ Tree::Tree(ShaderIF* sIF, double height, double xCenter, double zCenter) : shade
 	float B=0.2;
 
 	kdTetra[0] = R; kdTetra[1] = G; kdTetra[2] = B;
+	kaTetra[0] = R; kaTetra[1] = G; kaTetra[2] = B;
 	// put vertices in array to simplify generation of geometry:
 	cryph::AffPoint verts[] = { p0, p1, p2, p3 };
 	defineTetrahedron(verts);
@@ -38,6 +39,7 @@ Tree::Tree(ShaderIF* sIF, double height, double xCenter, double zCenter) : shade
 
 	//CYLINDER
 	kdCylinder[0] = 0.545; kdCylinder[1] = 0.271; kdCylinder[2] = 0.074;
+	kaCylinder[0] = 0.545; kaCylinder[1] = 0.271; kaCylinder[2] = 0.074;
 	double x1 = 0, x2 = height * .5;
 	double yb = -0.35, zb = 1.4;
 	xmin = x1;
@@ -78,15 +80,6 @@ void Tree::defineTetrahedron(const cryph::AffPoint verts[])
 		cryph::AffVector v02 = verts[viP2] - verts[i];
 		normal[i] = v01.cross(v02);
 	}
-
-	// ******************************************************************
-	// EXERCISE: Do the usual VAO/VBO magic here so that:
-	//           1) coordinates are sent in VBO
-	//           2) Normals will NOT be sent in VBO; rather they will
-	//              be set face-by-face (i.e., on a per-primitive basis)
-	//              in Tetrahedron::renderTetrahedron
-	// ******************************************************************
-
 	glGenVertexArrays(1, vaoTetra);
 	glGenBuffers(1, vboTetra);
 
@@ -102,8 +95,7 @@ void Tree::defineTetrahedron(const cryph::AffPoint verts[])
 	glBufferData(GL_ARRAY_BUFFER, numBytesInBuffer, vtx, GL_STATIC_DRAW);
 	glVertexAttribPointer(shaderIF->pvaLoc("mcPosition"), 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(shaderIF->pvaLoc("mcPosition"));
-	//std::cout << "Tetrahedron::defineTetrahedron: create/fill VBOs. You will see errors until you do so.\n";
-}
+	}
 
 void Tree::getMCBoundingBox(double* xyzLimits) const
 {
@@ -132,6 +124,7 @@ void Tree::render()
 
 	glBindVertexArray(vaoTetra[0]);
 	glUniform3fv(shaderIF->ppuLoc("kd"), 1, kdTetra);
+	glUniform3fv(shaderIF->ppuLoc("ka"), 1, kaTetra);
 
 	// draw the four faces:
 	for (int fi=0 ; fi<4 ; fi++)
@@ -141,6 +134,7 @@ void Tree::render()
 	}
 
 	glUniform3fv(shaderIF->ppuLoc("kd"), 1, kdCylinder);
+	glUniform3fv(shaderIF->ppuLoc("ka"), 1, kaCylinder);
 	glBindVertexArray(vaoCylinder[0]);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 2*(N_POINTS_AROUND_SLICE+1));
 
@@ -176,14 +170,6 @@ void Tree::defineCylinder(double y1, double y2, double xb, double zb, double r)
 	double theta = 0.0;
 	double dTheta = 2.0*M_PI/N_POINTS_AROUND_SLICE;
 	
-	// ************************************************************************
-	// EXERCISE: In the for-loop that follows, define the coordinates and
-	//           normals for a GL_TRIANGLE_STRIP that approximates a cylinder
-	//           in one of the following ways:
-	//           1. Along one of the x-, y-, or z-axes
-	//           2. Along an axis parallel to one of the x-, y-, or z-axes
-	//           3. In general position and orientation using the cryph utilities.
-	// ************************************************************************
 	for (int i=0 ; i<nPoints ; i+=2)
 	{
 		// Each time through this loop, create two points and their corresponding
@@ -217,10 +203,6 @@ void Tree::defineCylinder(double y1, double y2, double xb, double zb, double r)
 		theta += dTheta;
 	}
 
-	// ************************************************************************
-	// EXERCISE: Create/fill VAOs and VBOs here.
-	//           Also use glVertexAttribPointer and glEnableVertexAttribArray
-	// ************************************************************************
 	// Create the VAO and VBO names
 	glGenVertexArrays(1, vaoCylinder);
 	glGenBuffers(2, vboCylinder);
@@ -242,7 +224,6 @@ void Tree::defineCylinder(double y1, double y2, double xb, double zb, double r)
 	glBindBuffer(GL_ARRAY_BUFFER, vboCylinder[1]);
 
 	// Allocate space for AND send data to GPU
-	//numBytesInBuffer = nPoints * sizeof(vec3);
 	std::cout << numBytesInBuffer << "\n";
 	glBufferData(GL_ARRAY_BUFFER, numBytesInBuffer, normals, GL_STATIC_DRAW);
 	glVertexAttribPointer(shaderIF->pvaLoc("mcNormal"), 3, GL_FLOAT, GL_FALSE, 0, 0);
@@ -251,24 +232,3 @@ void Tree::defineCylinder(double y1, double y2, double xb, double zb, double r)
 	delete [] coords;
 	delete [] normals;
 }
-
-
-/*void Tree::renderCylinder()
-{
-	typedef float vec3[3];
-	GLint pgm;
-	glGetIntegerv(GL_CURRENT_PROGRAM, &pgm);
-	glUseProgram(shaderIF->getShaderPgmID());
-
-	cryph::Matrix4x4 mc_ec, ec_lds;
-	getMatrices(mc_ec, ec_lds);
-	float mat[16];
-	glUniformMatrix4fv(shaderIF->ppuLoc("mc_ec"), 1, false, mc_ec.extractColMajor(mat));
-	glUniformMatrix4fv(shaderIF->ppuLoc("ec_lds"), 1, false, ec_lds.extractColMajor(mat));
-
-	glUniform3fv(shaderIF->ppuLoc("kd"), 1, kdCylinder);
-	glBindVertexArray(vaoCylinder[0]);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 2*(N_POINTS_AROUND_SLICE+1));
-
-	glUseProgram(pgm);
-}*/
