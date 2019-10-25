@@ -8,7 +8,7 @@
 
 void addTrees(Controller& c, ShaderIF* sIF)
 {
-	//Add 9 trees
+	//Add 8 trees
 	c.addModel(new Tree(sIF, 23, -30, 0));
 	c.addModel(new Tree(sIF, 20, -15, 0));
 	c.addModel(new Tree(sIF, 25, 0, 0));
@@ -21,28 +21,17 @@ void addTrees(Controller& c, ShaderIF* sIF)
 
 void addGrass(Controller& c, ShaderIF* sIF)
 {
-	//the ground is on the XZ plane
-
-	//started out with 100x100 but spaced it out 5*x/z which was too much
-	//moved to 20x20 
-	//but thought 100 would be better for a denser patch of grass
-
 	double offset;
 	for(int x=0; x<100; x=x+1)
 	{
 		for(int z=0; z<100; z=z+1)
 		{
-			offset=(rand() % 10 + 1)*0.1;
-			c.addModel(new Grass(sIF, 0.5, (offset-35)+(x*0.6), ((offset+2)-20)+(0.6*z)));
+			offset=(rand() % 10 + 1) * 0.1;
+			c.addModel(new Grass(sIF, 0.5, (offset-35)+(0.6*x), (offset-18)+(0.6*z)));
 		}
 	}	
 
-	//didn't feel necessary to create a new class for the ground (just a simple block)
-	c.addModel(new Block(sIF,
-		-35.0, -0.01, -18.0,
-		61.0, 0.02, 61.0,
-		0.098, 0.0627, 0.0705
-	));
+	c.addModel(new Block(sIF, -35.0, -0.01, -18.0, 61.0, 0.02, 61.0, 0.098, 0.0627, 0.0705));
 }
 
 void addPicnicTable(Controller& c, ShaderIF* sIF)
@@ -58,8 +47,6 @@ void createScene(ExtendedController& c, ShaderIF* sIF)
 {
 	double dXYZ[] = {0.0, 0.0, 0.0};
 	float color1[] = { 0.3, 1.0, 1.0 };
-	//c.addModel(new M(sIF, dXYZ, color1));
-	dXYZ[0] = 0.7; // translate next 'M' by deltaX = 0.7
 	float color2[] = { 1.0, 0.25, 0.2 };
 	addTrees(c, sIF);
 	addGrass(c, sIF);

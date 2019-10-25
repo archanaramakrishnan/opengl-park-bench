@@ -58,14 +58,6 @@ void Grass::defineTetrahedron(const cryph::AffPoint verts[])
 		normal[i] = v01.cross(v02);
 	}
 
-	// ******************************************************************
-	// EXERCISE: Do the usual VAO/VBO magic here so that:
-	//           1) coordinates are sent in VBO
-	//           2) Normals will NOT be sent in VBO; rather they will
-	//              be set face-by-face (i.e., on a per-primitive basis)
-	//              in Tetrahedron::renderTetrahedron
-	// ******************************************************************
-
 	glGenVertexArrays(1, vao);
 	glGenBuffers(1, vbo);
 

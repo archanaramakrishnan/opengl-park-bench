@@ -33,6 +33,7 @@ private:
 	// "float" here to match the need to send float to VBO.
 	float xmin, xmax, ymin, ymax, zmin, zmax;
 	float kd[3];
+	float ka[3];
 
 	static GLuint indexList[3][4];
 

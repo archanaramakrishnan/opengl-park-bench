@@ -24,7 +24,6 @@ public:
 	void getMCBoundingBox(double* xyzLimits) const;
 	bool handleCommand(unsigned char anASCIIChar, double ldsX, double ldsY);
 	void render();
-	//void renderBlock();
 private:
 	Block* blocks[5];
 

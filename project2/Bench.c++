@@ -31,9 +31,6 @@ Bench::Bench(ShaderIF* sIF, double xCorner, double zCorner)
 	blocks[2]= new Block(sIF, xmin, 0, zmin+width-legDimension, legDimension, height - thickness, legDimension, R, G, B);
 	blocks[3]= new Block(sIF, xmin+length-legDimension, 0, zmin, legDimension, height - thickness, legDimension, R, G, B);
 	blocks[4]= new Block(sIF, xmin+length-legDimension, 0, zmin+width-legDimension, legDimension, height - thickness, legDimension, R, G, B);
-	
-	// kd[0] = 0.7; kd[1] = 0.7; kd[2] = 0.0;
-	// defineBlock();
 }
 
 Bench::~Bench()
